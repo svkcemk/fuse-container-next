@@ -1,0 +1,11 @@
+- name: builder
+  version: 8.0.0
+  from: openshift/golang-builder:v1.13.4-3.el8
+  description: Openshift golang builder image
+
+  modules:
+    repositories:
+      - name: modules
+        path: modules
+    install:
+      - name: operator
