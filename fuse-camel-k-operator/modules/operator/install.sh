@@ -4,12 +4,43 @@ SCRIPT_DIR=$(dirname $0)
 SCRIPTS_DIR=${SCRIPT_DIR}/scripts
 SOURCES_DIR=/tmp/artifacts
 
-microdnf install -y java-openjdk-headless
+
+clone_repo() {
+    local repo=$1
+    local tag=$2
+
+    local dir=`basename $repo`
+
+    if [ ! -d $dir ]
+    then
+        if ! git clone $repo
+        then
+            echo "ERROR: Failed to clone $repo"
+            return 1
+        fi
+    fi
+
+    pushd $dir
+    git fetch --tags
+    if ! git checkout $tag
+    then
+        popd
+        echo "ERROR: Failed to checkout $tag in $repo"
+        return 1
+    fi
+
+    popd
+    return 0
+}
+
+
+
+# dnf install -y java-openjdk-headless
 
 curl $RH_INTERNAL_CERT_URL -o redhat-internal-cert-install-0.1-20.el7.csb.noarch.rpm
 rpm -ivh redhat-internal-cert-install-0.1-20.el7.csb.noarch.rpm 
 
-if ! git clone https://code.engineering.redhat.com/gerrit/jboss-fuse/camel-k $CAMEL_K_TAG
+if ! clone_repo https://code.engineering.redhat.com/gerrit/jboss-fuse/camel-k $CAMEL_K_TAG
     then
         echo "ERROR: Failed to checkout correct version of camel-k"
         return 1
@@ -25,3 +56,4 @@ fi
 cp deploy/camel-catalog-$CAMEL_K_RUNTIME_VERSION.yaml ../camel-catalog-$CAMEL_K_RUNTIME_VERSION.yaml
 
 popd
+
