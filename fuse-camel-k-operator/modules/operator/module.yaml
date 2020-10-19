@@ -4,40 +4,41 @@ name: operator
 version: 8.0.0
 
 envs:
+  - name: "FLOATING_VERSION"
+    value: "1.2.0"
   - name: "CAMEL_K_VERSION"
-    value: "1.1.1"
+    value: "1.2.0.fuse-jdk11-800005"
   - name: "CAMEL_K_TAG"
-    value: "camel-k-1.1.1.fuse-jdk11-800004"
+    value: "camel-k-${CAMEL_K_VERSION}"
   - name: "CAMEL_K_RUNTIME_VERSION"
-    value: "1.5.0.fuse-jdk11-800006-redhat-00001"
-  - name: "CAMEL_QUARKUS_VERSION"
-    value: "1.1.0.fuse-jdk11-800032-redhat-00001"
+    value: "1.5.0.fuse-jdk11-800008-redhat-00001"
   - name: "CAMEL_VERSION"
-    value: "3.5.1.fuse-jdk11-800004-redhat-00001"
-  - name: "MAVEN_VERSION"
-    value: "3.6.3"
-  - name: "IMAGE_NAME"
-    value: "registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator"
+    value: "3.5.1.fuse-jdk11-800005-redhat-00002"
+  - name: "CAMEL_QUARKUS_VERSION"
+    value: "1.1.0.fuse-jdk11-800034-redhat-00001"
+  - name: "SCRATCH_BUILD"
+    value: "true"
   - name : "RH_INTERNAL_CERT_URL"
     value: http://hdn.corp.redhat.com/rhel8-csb/RPMS/noarch/redhat-internal-cert-install-0.1-20.el7.csb.noarch.rpm
   
-packages:
-   install:
-      - git
-
 # packages:
-#   manager: dnf
-#   content_sets:
-#     x86_64:
-#       - rhel-7-server-rpms
-#       - rhel-server-rhscl-7-rpms
+#    install:
+#       - git
+#       - java-openjdk-headless
+
+packages:
+  manager: yum
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+      - rhel-server-rhscl-7-rpms
   
-#     install:
-#     - git
-#     - unzip
-#     - tar
-#     - rsync
-#     - shadow-utils
+    install:
+    - git
+    - unzip
+    - tar
+    - rsync
+    - shadow-utils
 execute:
   - script: install.sh
 
