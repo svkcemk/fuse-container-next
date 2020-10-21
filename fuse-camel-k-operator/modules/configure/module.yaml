@@ -1,6 +1,6 @@
 schema_version: 1
 
-name: operator
+name: configure
 version: 8.0.0
 
 envs:
@@ -20,12 +20,6 @@ envs:
     value: "true"
   - name : "RH_INTERNAL_CERT_URL"
     value: http://hdn.corp.redhat.com/rhel8-csb/RPMS/noarch/redhat-internal-cert-install-0.1-20.el7.csb.noarch.rpm
-  
-# packages:
-#    install:
-#       - git
-#       - java-openjdk-headless
-
 packages:
   manager: yum
   content_sets:
@@ -40,5 +34,5 @@ packages:
     - rsync
     - shadow-utils
 execute:
-  - script: install.sh
+  - script: configure.sh
 

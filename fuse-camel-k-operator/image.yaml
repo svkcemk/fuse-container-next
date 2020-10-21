@@ -1,29 +1,6 @@
-
-# schema_version: 1
-
-# from: "registry.access.redhat.com/ubi8/ubi-minimal"
-# name: &name "ubi8/openjdk-8"
-# version: &version "1.3"
-# description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 1.8"
-
-# modules:
-#   repositories:
-#     - name: modules
-#       path: modules
-#   install:
-    
-#       - name: operator
-# help:
-#   add: true
-
-# packages:
-#   manager: microdnf
-
-
-
 - name: builder
   version: 1.0.0
-  from: registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:v1.13.4-3.el8
+  from: openshift3/golang-builder
 
   modules:
     repositories:
@@ -32,3 +9,68 @@
     install:
       # Module required to build the application
       - name: operator
+
+# envs:
+#   - name: "VERSION"
+#     value: "1.0"
+#   - name: "FLOATING_VERSION"
+#     value: "1.2.0"
+#   - name: "CAMEL_K_VERSION"
+#     value: "1.2.0.fuse-jdk11-800005"
+#   - name: "CAMEL_K_TAG"
+#     value: "camel-k-${CAMEL_K_VERSION}"
+#   - name: "CAMEL_K_RUNTIME_VERSION"
+#     value: "1.5.0.fuse-jdk11-800008-redhat-00001"
+#   - name: "CAMEL_VERSION"
+#     value: "3.5.1.fuse-jdk11-800005-redhat-00002"
+#   - name: "CAMEL_QUARKUS_VERSION"
+#     value: "1.1.0.fuse-jdk11-800034-redhat-00001"
+#   - name: "SCRATCH_BUILD"
+#     value: "true"
+#   - name : "RH_INTERNAL_CERT_URL"
+#     value: http://hdn.corp.redhat.com/rhel8-csb/RPMS/noarch/redhat-internal-cert-install-0.1-20.el7.csb.noarch.rpm
+#   - name : "IMAGE_NAME"
+#     value : registry.redhat.io/integration-tech-preview/camel-k-rhel8-operator
+# labels:
+#   - name: "name"
+#     value: "integration-tech-preview/camel-k-rhel8-operator"
+#   - name: "version"
+#     value: "${VERSION}"
+#   - name: "description"
+#     value: "Red Hat Integration - Camel K is a lightweight integration platform, born on Kubernetes, with serverless superpowers."
+#   - name: "com.redhat.component"
+#     value: "fuse-camel-k-operator-container"
+#   - name: "io.k8s.display-name"
+#     value: "Red Hat Integration - Camel K"
+#   - name: "io.openshift.tags"
+#     value: "fuse,integration,camel"
+#   - name: "fuse.camel.quarkus.version"
+#     value: "${CAMEL_QUARKUS_VERSION}"
+#   - name: "fuse.camel.version"
+#     value: "${CAMEL_VERSION}"
+#   - name: " fuse.camel-k.runtime.version"
+#     value: "${CAMEL_K_RUNTIME_VERSION}"
+#   - name: "fuse.camel-k.tag"
+#     value: "${CAMEL_K_TAG}"
+#   - name: "summary"
+#     value: "Red Hat Integration - Camel K is a lightweight integration platform, born on Kubernetes, with serverless superpowers."
+#   - name: "maintainer"
+#     value: "Otavio Piske <opiske@redhat.com>"
+
+
+# # modules:
+# #     repositories:
+# #       - name: modules
+# #       - path: modules
+
+# #     install:
+# #       - name: operator
+# packages:
+#   manager: microdnf
+#   content_sets:
+#     x86_64:
+#       - rhel-7-server-rpms
+#       - rhel-server-rhscl-7-rpms
+#   install:
+#     - java-11-openjdk-devel
+#     - openssl
