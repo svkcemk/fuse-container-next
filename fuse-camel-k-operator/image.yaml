@@ -1,15 +1,21 @@
-- name: builder
-  version: 1.0.0
-  from: openshift3/golang-builder
-
+- schema_version: 1
+  name: "builder"
+  description: "Golang builder image"
+  version: ""
+  from: "openshift/golang-builder:v1.13.4-3.el8"
   modules:
     repositories:
-      - path: modules
-
+      - name: builder
+        path: modules/builder
     install:
-      # Module required to build the application
-      - name: operator
-
+      - name: builder
+  osbs:      
+    configuration:
+      container:
+        image_build_method: imagebuilder
+        platforms:
+          only:
+            - x86_64
 # envs:
 #   - name: "VERSION"
 #     value: "1.0"
